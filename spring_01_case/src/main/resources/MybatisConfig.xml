@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--引入属性文件-->
+    <properties resource="jdbc.properties"/>
+
+    <!--配置别名-->
+    <typeAliases>
+        <!--给单个类配置别名 alias="student"表示别名，不写的话类名就是别名，不区分大小写-->
+        <!--<typeAlias type="com.itheima.bean.Student" />-->
+        <!--给一个包中的类配置别名，类名就是别名，不区分大小写-->
+        <package name="com.shiju.bean"/>
+    </typeAliases>
+
+
+    <!--mysql连接参数-->
+    <!--default="mysql" 默认使用id="mysql"连接环境-->
+    <environments default="mysql">
+        <!--id="mysql" 该环境的唯一标识id-->
+        <environment id="mysql">
+            <!--type="jdbc"  使用jdbc事务-->
+            <transactionManager type="jdbc"></transactionManager>
+            <!--配置数据源，mybatis内置连接池-->
+            <dataSource type="pooled">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!--加载映射文件-->
+    <mappers>
+        <mapper resource="StudentMapper.xml"/>
+    </mappers>
+
+</configuration>

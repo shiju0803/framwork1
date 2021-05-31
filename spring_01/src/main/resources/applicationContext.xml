@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--&lt;!&ndash;
+        1.set方法注入数据(重要)
+        告诉spring创建什么对象存起来
+        id="userService":保存到spring容器中bean的唯一标识，将来通过这个名词获取bean
+        class="com.shiju.service.impll.UserServiceImpl"：要创建的bean的全类名，底层会通过反射技术创建对象存到IOC容器中
+    &ndash;&gt;
+    <bean id="userService" class="com.shiju.service.impl.UserServiceImpl">
+        &lt;!&ndash;name="name"：表示属性名称，set方法去掉set之后首字母小写的部分，一般和成员变量相同
+            value="黄桂田"：注入普通类型的数据（基本类型+String）
+        &ndash;&gt;
+        <property name="name" value="黄桂田"/>
+        <property name="age" value="38"/>
+        &lt;!&ndash;ref = "userDao":注入对象类型的数据，值是spring容器中bean对象的id
+            要求：被注入的对象一定要在spring容器中
+        &ndash;&gt;
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    &lt;!&ndash;配置dao&ndash;&gt;
+    <bean id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
+
+    <!--
+        2.构造方法注入数据
+    -->
+<!--    <bean id="userService" class="com.shiju.service.impl.UserServiceImpl">
+        &lt;!&ndash;
+            name="userDao":表示构造方法中的参数名称
+            ref="userDao" :表示注入的对象，被注入的对象一定要存在于spring容器，没有就报错
+            value="武汉": 表示注入普通类型数据，例如基本类型+String
+            type="com.itheima.dao.UserDao" :表示按照类型注入数据，少用
+            index="0":表示按照索引给参数注入数据，少用
+        &ndash;&gt;
+        <constructor-arg name="name" value="黄桂田"/>
+        <constructor-arg name="age" value="38"/>
+
+        &lt;!&ndash;使用property方式赋值&ndash;&gt;
+        <constructor-arg name="userDao" ref="userDao"/>
+    </bean>-->
+
+    <!--配置UserDao-->
+    <!--<bean id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
+
+    <bean id="calendar" class="java.util.Calendar" factory-method="getInstance"/>
+
+    <!--加载jdbc.properties属性文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--配置数据源属性信息-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+</beans>
