@@ -12,10 +12,8 @@
 
     <!--配置StudentService-->
     <bean id="studentService" class="com.shiju.service.impl.StudentServiceImpl">
-        <!--public void setMapper(StudentMapper mapper)-->
         <property name="mapper" ref="studentMapper"/>
     </bean>
-
     <!--配置连接池-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
@@ -28,23 +26,17 @@
     <!--配置SqlSessionFactory对象，底层负责创建SqlSessionFactoryBuilder、SqlSessionFactory对象，
         同时加载mybatis需要的环境信息-->
     <bean class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!--必须提供dataSource连接池对象【必须配置】-->
+        <!--必须有-->
         <property name="dataSource" ref="dataSource"/>
-        <!--加载mybatis的核心配置文件【可选】-->
-        <!--<property name="configLocation" value="classpath:MybatisConfig.xml"/>-->
-        <!--配置别名【可选】-->
+        <!--可选-->
         <property name="typeAliasesPackage" value="com.shiju.bean"/>
-        <!--配置映射配置文件的位置【可选】-->
+        <!--配置mybatis的核心配置文件的位置，核心配置文件中也可以设置别名、映射文件位置等操作-->
+        <!--<property name="configLocation" value="classpath:MybatisConfig.xml"/>-->
         <!--如果映射文件和mapper接口在同一个包下并且名称相同，可以不用配置-->
         <property name="mapperLocations" value="classpath:StudentMapper.xml"/>
     </bean>
     <!--MapperScannerConfigurer 扫描mapper接口，生成代理对象，存的spring容器中-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!--作用：
-                1、负责扫描dao/maper接口的包，生成接口的代理对象，存到spring容器
-                2、扫描dao所在的包中是否有对应的映射文件，如果没有就无法执行sql。如果是使用注解配置SQL语句，就会扫描接口中的注解
-                说明：如果映射文件和接口不在同一个包中，那么就需要单独配置映射文件的位置或者核心配置文件的位置(核心配置文件中可以加载映射文件)
-            -->
         <property name="basePackage" value="com.shiju.mapper"/>
     </bean>
 

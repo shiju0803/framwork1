@@ -1,7 +1,6 @@
 package com.shiju.test;
 import com.shiju.bean.Student;
 import com.shiju.service.StudentService;
-import com.shiju.service.impl.StudentServiceImpl;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
