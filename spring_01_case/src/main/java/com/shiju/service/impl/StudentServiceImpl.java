@@ -1,23 +1,16 @@
 package com.shiju.service.impl;
-
 import com.shiju.bean.Student;
 import com.shiju.mapper.StudentMapper;
 import com.shiju.service.StudentService;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class StudentServiceImpl implements StudentService {
     //注入的是mapper的代理对象
     private StudentMapper mapper;
 
-    public void setMapper(StudentMapper studentMapper) {
-        this.mapper = studentMapper;
+    public void setMapper(StudentMapper mapper) {
+        this.mapper = mapper;
     }
 
     @Override

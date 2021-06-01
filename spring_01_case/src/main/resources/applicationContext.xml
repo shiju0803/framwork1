@@ -31,9 +31,9 @@
         <!--必须提供dataSource连接池对象【必须配置】-->
         <property name="dataSource" ref="dataSource"/>
         <!--加载mybatis的核心配置文件【可选】-->
-        <property name="configLocation" value="classpath:MybatisConfig.xml"/>
+        <!--<property name="configLocation" value="classpath:MybatisConfig.xml"/>-->
         <!--配置别名【可选】-->
-        <property name="typeAliases" value="com.shiju.bean"/>
+        <property name="typeAliasesPackage" value="com.shiju.bean"/>
         <!--配置映射配置文件的位置【可选】-->
         <!--如果映射文件和mapper接口在同一个包下并且名称相同，可以不用配置-->
         <property name="mapperLocations" value="classpath:StudentMapper.xml"/>

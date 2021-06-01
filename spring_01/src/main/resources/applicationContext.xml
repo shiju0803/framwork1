@@ -7,26 +7,26 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--&lt;!&ndash;
+    <!--
         1.set方法注入数据(重要)
         告诉spring创建什么对象存起来
         id="userService":保存到spring容器中bean的唯一标识，将来通过这个名词获取bean
         class="com.shiju.service.impll.UserServiceImpl"：要创建的bean的全类名，底层会通过反射技术创建对象存到IOC容器中
-    &ndash;&gt;
+    -->
     <bean id="userService" class="com.shiju.service.impl.UserServiceImpl">
-        &lt;!&ndash;name="name"：表示属性名称，set方法去掉set之后首字母小写的部分，一般和成员变量相同
+        <!--name="name"：表示属性名称，set方法去掉set之后首字母小写的部分，一般和成员变量相同
             value="黄桂田"：注入普通类型的数据（基本类型+String）
-        &ndash;&gt;
+        -->
         <property name="name" value="黄桂田"/>
         <property name="age" value="38"/>
-        &lt;!&ndash;ref = "userDao":注入对象类型的数据，值是spring容器中bean对象的id
+        <!--ref = "userDao":注入对象类型的数据，值是spring容器中bean对象的id
             要求：被注入的对象一定要在spring容器中
-        &ndash;&gt;
+        -->
         <property name="userDao" ref="userDao"/>
     </bean>
 
-    &lt;!&ndash;配置dao&ndash;&gt;
-    <bean id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
+    <!--配置dao-->
+    <bean id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>
 
     <!--
         2.构造方法注入数据
