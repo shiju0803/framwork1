@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发送ajax请求</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios-0.18.0.js"></script>
+</head>
+<body>
+<div id="app">
+    <a @click="testAjax" href="javascript:void(0);">访问springmvc后台controller</a><br/>
+    <a @click="testAjaxPojo" href="javascript:void(0);">访问springmvc后台controller，传递Json格式POJO</a><br/>
+    <a @click="testAjaxList" href="javascript:void(0);">访问springmvc后台controller，传递Json格式List</a><br/>
+    <a @click="testAjaxReturnString" href="javascript:void(0);">访问springmvc后台controller，返回字符串数据</a><br/>
+    <a @click="testAjaxReturnJson" href="javascript:void(0);">访问springmvc后台controller，返回Json数据</a><br/>
+    <a @click="testAjaxReturnJsonList" href="javascript:void(0);">访问springmvc后台controller，返回Json数组数据</a><br/>
+    <br/>
+    <a @click="testCross" href="javascript:void(0);">跨域访问</a><br/><br/><br/><br/><br/>
+    <a @click="testException" href="javascript:void(0);">自定义异常处理测试</a><br/>
+</div>
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            user: {name: "老李", age: 20},
+            userList: [
+                {name: "老李", age: 20},
+                {name: "老王", age: 21},
+                {name: "老张", age: 22}]
+        },
+        methods: {
+            //访问springmvc后台controller
+            testAjax() {
+                axios.get("ajax/ajaxController").then(resp => {
+                    console.log(resp);
+                    console.log(resp.data);
+                })
+            },
+            //访问springmvc后台controller，传递Json格式POJO
+            testAjaxPojo() {
+                axios.post("ajax/ajaxPojoToController", this.user).then(resp => {
+                    alert(resp);
+                    alert(resp.data);
+                })
+            },
+            //访问springmvc后台controller，传递Json格式List
+            testAjaxList() {
+                axios.post("ajax/ajaxListToController", this.userList).then(resp => {
+                    alert(resp);
+                    alert(resp.data);
+                })
+            },
+            //访问springmvc后台controller，返回字符串数据
+            testAjaxReturnString() {
+                axios.post("ajax/ajaxReturnString", this.user).then(resp => {
+                    alert(resp);
+                    alert(resp.data);
+                })
+            },
+            //访问springmvc后台controller，返回Json对象数据
+            testAjaxReturnJson() {
+                axios.post("ajax/ajaxReturnJson").then(resp => {
+                    alert(resp);
+                    alert(resp.data);
+                })
+            },
+            //访问springmvc后台controller，返回Json数组数据
+            testAjaxReturnJsonList() {
+                axios.post("ajax/ajaxReturnJsonList").then(resp => {
+                    alert(resp);
+                    alert(resp.data);
+                })
+            },
+            //访问springmvc后台controller，返回Json数组数据
+            testException() {
+                axios.post("save", {"name": "老李", "age": 12}).then(resp => {
+                    alert(resp.data);
+                })
+            },
+            //跨域访问
+            testCross() {
+                axios.post("http://192.168.81.174:8081/springmvc_02/ajax/cross").then(resp => {
+                    alert(resp);
+                    alert(resp.data);
+                })
+            }
+        }
+    });
+
+</script>
+</html>
