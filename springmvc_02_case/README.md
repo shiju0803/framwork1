@@ -7,10 +7,10 @@
 	axios.post("student/addStudent",this.student).then(resp=>{})
         @RequestMapping("/addStudent")
         @ResponseBody
-	    public void save(@RequestBody Student student){}
+	public void save(@RequestBody Student student){}
     @RequestBody和@ReponseBody的区别？
-		@RequestBody：将请求体中的json数据转换成java对象。
-		@ReponseBody：不进行页面跳转，通过响应体响应数据。
+	@RequestBody：将请求体中的json数据转换成java对象。
+	@ReponseBody：不进行页面跳转，通过响应体响应数据。
 
 **2.使用自定义拦截器，处理在未登录情况下直接在浏览器发送请求导致数据泄露问题;**
 
