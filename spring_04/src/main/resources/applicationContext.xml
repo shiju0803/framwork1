@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+
+    <!--开启spring注解扫描-->
+    <context:component-scan base-package="com.shiju"/>
+
+    <!--加载属性文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+    <!--配置spring中提供的SqlSessionFactoryBean帮助我们创建mybatis操作数据库的链接对象-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.shiju.domain"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.shiju.dao"/>
+    </bean>
+
+    <!--AOP改造配置事务管理-->
+    <!--配置AOP-->
+    <!--    <domain id="txAdvice" class="com.shiju.aop.TxAdvice">
+            <property name="dataSource" ref="dataSource"/>
+        </domain>
+        <aop:config>
+            <aop:pointcut id="pt" expression="execution(* *..transfer(..))"/>
+            <aop:aspect ref="txAdvice">
+                <aop:around method="tx" pointcut-ref="pt"/>
+            </aop:aspect>
+        </aop:config>-->
+
+
+    <!--声明式事务管理-->
+    <!--1.配置平台事务管理器-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--2.配置通知，定义事务的属性-->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <!--定义哪些方法需要使用事务以及事务的属性-->
+        <tx:attributes>
+            <!--拦截所有的方法都有读写事务，在这些方法中可以做增删改查操作-->
+            <tx:method name="*" read-only="false"/>
+            <!--get，find开头的方法使用只读事务，只读事务方法中只能做查询，不能做增删改查-->
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <!--<tx:method name="transfer" read-only="false"/>-->
+        </tx:attributes>
+    </tx:advice>
+    <!--3.AOP配置-->
+    <aop:config>
+        <aop:pointcut id="pt" expression="execution(* com.shiju.service.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt"/>
+    </aop:config>
+
+    <!--开启spring声明式事务管理注解驱动-->
+    <tx:annotation-driven transaction-manager="txManager"/>
+</beans>
