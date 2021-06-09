@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--    &lt;!&ndash;开启注解&ndash;&gt;
+        <context:component-scan base-package="com.shiju"/>
+        &lt;!&ndash;开启spring的AOP注解扫描&ndash;&gt;
+        <aop:aspectj-autoproxy/>-->
+
+    <!--配置service-->
+    <bean id="studentService" class="com.shiju.service.impl.StudentServiceImpl"/>
+    <!--配置advice通知类-->
+    <bean id="advice" class="com.shiju.aop.Advice"/>
+    <!--AOP配置-->
+    <aop:config proxy-target-class="false">
+        <!--配置切面，也叫配置织入：切入点方法和通知方法结合的过程，
+        就是在做增强ref="advice":表示使用的是advice通知对象，将来调用该对象中的方法-->
+        <aop:aspect ref="advice">
+            <!--切入点表达式-->
+            <aop:pointcut id="pt" expression="execution(* com.shiju.service.impl.StudentServiceImpl.findAll(..))"/>
+            <!--
+                前置通知：在执行方法之前通知对象中的before方法
+                method="before":执行通知对象中的before方法
+                pointcut="":通过表达式找到要增强的方法
+            -->
+            <aop:before method="before" pointcut-ref="pt"/>
+            <!--后置通知，也叫后置返回通知-->
+            <aop:after-returning method="afterReturn" pointcut-ref="pt"/>
+            <!--异常通知，也叫后置异常通知-->
+            <aop:after-throwing method="afterThrowable" pointcut-ref="pt"/>
+            <!--最终通知-->
+            <aop:after method="after" pointcut-ref="pt"/>
+            <!--环绕通知-->
+            <aop:around method="around" pointcut-ref="pt"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
