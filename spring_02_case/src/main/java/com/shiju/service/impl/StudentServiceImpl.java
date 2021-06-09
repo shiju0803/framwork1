@@ -1,6 +1,6 @@
 package com.shiju.service.impl;
 
-import com.shiju.bean.Student;
+import com.shiju.domain.Student;
 import com.shiju.mapper.StudentMapper;
 import com.shiju.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;

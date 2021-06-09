@@ -1,6 +1,6 @@
 package com.shiju.mapper;
 
-import com.shiju.bean.Student;
+import com.shiju.domain.Student;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;

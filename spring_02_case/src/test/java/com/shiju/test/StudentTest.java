@@ -1,7 +1,7 @@
 package com.shiju.test;
 
-import com.shiju.bean.Student;
 import com.shiju.config.SpringConfiguration;
+import com.shiju.domain.Student;
 import com.shiju.service.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

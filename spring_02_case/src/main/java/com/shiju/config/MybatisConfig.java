@@ -23,10 +23,10 @@ public class MybatisConfig {
     }
 
     /*
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <domain class="org.mybatis.spring.mapper.MapperScannerConfigurer">
            <!--扫描mapper所在的包，映射文件需要和包在一起，如果不在一起，就需要在SqlSessionFactoryBean中配置额外指定-->
            <property name="basePackage" value="com.itheima.mapper"/>
-       </bean>
+       </domain>
     */
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
