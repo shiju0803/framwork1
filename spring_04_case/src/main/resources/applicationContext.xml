@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+
+    <!--开启spring注解扫描-->
+    <context:component-scan base-package="com.shiju.service"/>
+    <!--spring整合mybatis-->
+    <!--引入配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--配置druid连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--配置SqlSessionFactoryBean:加载mybatis的环境，创建SqlSessionFactory...-->
+    <bean  class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--必须注入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--配置实体类别名-->
+        <!--<property name="typeAliasesPackage" value="com.shiju.domainin"/>-->
+        <!--加载mybatis核心配置文件-->
+        <!--<property name="configLocation" value="classpath:MybatisConfig.xml"/>-->
+        <!--配置分页插件-->
+        <property name="plugins">
+            <bean class="com.github.pagehelper.PageInterceptor"/>
+        </property>
+     </bean>
+    <!--配置MapperScannerConfigurer，扫描mapper接口所在包，创建代理对象存入spring容器中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描mapper所在的包-->
+        <property name="basePackage" value="com.shiju.mapper"/>
+    </bean>
+
+    <!--声明式事务管理配置-->
+    <!--配置平台事务管理器DataSourceTransactionManager-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--开启声明式事务管理注解驱动-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
