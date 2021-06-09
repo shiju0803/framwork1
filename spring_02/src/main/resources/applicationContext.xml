@@ -14,24 +14,24 @@
         set方式注入：
     -->
 
-    <!--    <bean id="userService" class="com.shiju.service.impl.UserServiceImpl">
+    <!--    <domain id="userService" class="com.shiju.service.impl.UserServiceImpl">
             <property name="name" value="jack"/>
             <property name="age" value="20"/>
             <property name="userDao" ref="userDao"/>
-        </bean>
+        </domain>
 
-        <bean id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
+        <domain id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
 
 
     <!--【第一步】：引入外部的属性文件-->
     <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
     <!--【第二步】：使用el表达式从属性文件中取值-->
-    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+    <!--<domain id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-    </bean>-->
+    </domain>-->
 
     <!--
         2.注解开发-->
