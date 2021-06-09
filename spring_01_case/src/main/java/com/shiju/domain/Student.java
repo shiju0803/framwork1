@@ -1,4 +1,4 @@
-package com.shiju.bean;
+package com.shiju.domain;
 
 public class Student {
     private Integer id;

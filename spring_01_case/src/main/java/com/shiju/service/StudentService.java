@@ -1,6 +1,6 @@
 package com.shiju.service;
 
-import com.shiju.bean.Student;
+import com.shiju.domain.Student;
 
 import java.io.IOException;
 import java.util.List;

@@ -29,7 +29,7 @@
         <!--必须有-->
         <property name="dataSource" ref="dataSource"/>
         <!--可选-->
-        <property name="typeAliasesPackage" value="com.shiju.bean"/>
+        <property name="typeAliasesPackage" value="com.shiju.domain"/>
         <!--配置mybatis的核心配置文件的位置，核心配置文件中也可以设置别名、映射文件位置等操作-->
         <!--<property name="configLocation" value="classpath:MybatisConfig.xml"/>-->
         <!--如果映射文件和mapper接口在同一个包下并且名称相同，可以不用配置-->

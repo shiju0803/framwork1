@@ -1,6 +1,6 @@
 package com.shiju.mapper;
 
-import com.shiju.bean.Student;
+import com.shiju.domain.Student;
 
 import java.util.List;
 
