@@ -31,7 +31,7 @@
     <!--
         2.构造方法注入数据
     -->
-<!--    <bean id="userService" class="com.shiju.service.impl.UserServiceImpl">
+<!--    <domain id="userService" class="com.shiju.service.impl.UserServiceImpl">
         &lt;!&ndash;
             name="userDao":表示构造方法中的参数名称
             ref="userDao" :表示注入的对象，被注入的对象一定要存在于spring容器，没有就报错
@@ -44,10 +44,10 @@
 
         &lt;!&ndash;使用property方式赋值&ndash;&gt;
         <constructor-arg name="userDao" ref="userDao"/>
-    </bean>-->
+    </domain>-->
 
     <!--配置UserDao-->
-    <!--<bean id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
+    <!--<domain id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
 
     <bean id="calendar" class="java.util.Calendar" factory-method="getInstance"/>
 
