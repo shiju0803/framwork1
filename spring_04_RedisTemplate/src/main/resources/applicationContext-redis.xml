@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+
+
+">
+
+    <context:property-placeholder location="classpath:redis.properties"/>
+
+    <!--配置连接池配置对象-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--
+            #最大活动连接
+            redis.maxActive=20
+            #最大空闲连接
+            redis.maxIdle=10
+            #最小空闲连接
+            redis.minIdle=0
+            #最大等待时间
+            redis.maxWait=-1
+        -->
+        <property name="maxTotal" value="${redis.maxActive}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="minIdle" value="${redis.minIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWait}"/>
+
+    </bean>
+
+    <!--配置Redis连接工厂：JedisConnectionFactory-->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <!--使用0号数据库-->
+        <property name="database" value="0"/>
+        <!--主机名-->
+        <property name="hostName" value="${redis.host}"/>
+        <!--端口号-->
+        <property name="port" value="${redis.port}"/>
+        <!--密码-->
+        <property name="password" value="${redis.password}"/>
+        <!--设置连接池配置对象-->
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+
+    <!--配置RedisTemplate模版对象：RedisTemplate-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"></property>
+        <!--如下配置是为了之后的key和value的序列化操作，暂时不配制也是OK的-->
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+        </property>
+    </bean>
+</beans>
