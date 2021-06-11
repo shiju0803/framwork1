@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--1+3+2模型-->
+    <!--1的部分：开启spring包扫描-->
+    <context:component-scan base-package="com.shiju.service"/>
+
+    <!--3的部分：spring整合mybatis-->
+    <!--3.1 配置druid连接池-->
+    <!--加载jdbc配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!--3.2 配置SqlSessionFactoryBean-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--别名-->
+        <property name="typeAliasesPackage" value="com.shiju.domain"/>
+        <!--配置分页插件-->
+        <property name="plugins">
+            <bean class="com.github.pagehelper.PageInterceptor">
+                <property name="properties">
+                    <props>
+                        <!--告诉分页插件使用的是mysql数据库，分页查询使用mysql的limit关键字，limit关键字是mysql的方言。-->
+                        <prop key="helperDialect">mysql</prop>
+                        <!--合理化设置，如果页码大于最大业数，那么就查询最后一页。如果页码小于1，那么就查询第一页数据。-->
+                        <prop key="reasonable">true</prop>
+                    </props>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <!--3.3 配置MapperScannerConfigurer-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.shiju.mapper"/>
+    </bean>
+
+    <!--2的部分：声明式事务管理-->
+    <!--2.1配置平台事务管理DataSourceTransactionManager-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--2.2 开启声明式事务管理注解驱动-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
