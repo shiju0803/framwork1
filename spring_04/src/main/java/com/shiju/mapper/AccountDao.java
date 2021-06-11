@@ -1,4 +1,4 @@
-package com.shiju.dao;
+package com.shiju.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;

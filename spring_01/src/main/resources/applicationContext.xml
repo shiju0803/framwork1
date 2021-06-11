@@ -26,7 +26,7 @@
     </bean>
 
     <!--配置dao-->
-    <bean id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>
+    <bean id="userDao" class="com.shiju.mapper.impl.UserDaoImpl"/>
 
     <!--
         2.构造方法注入数据
@@ -36,7 +36,7 @@
             name="userDao":表示构造方法中的参数名称
             ref="userDao" :表示注入的对象，被注入的对象一定要存在于spring容器，没有就报错
             value="武汉": 表示注入普通类型数据，例如基本类型+String
-            type="com.itheima.dao.UserDao" :表示按照类型注入数据，少用
+            type="com.itheima.mapper.UserDao" :表示按照类型注入数据，少用
             index="0":表示按照索引给参数注入数据，少用
         &ndash;&gt;
         <constructor-arg name="name" value="黄桂田"/>
@@ -47,7 +47,7 @@
     </domain>-->
 
     <!--配置UserDao-->
-    <!--<domain id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
+    <!--<domain id="userDao" class="com.shiju.mapperper.impl.UserDaoImpl"/>-->
 
     <bean id="calendar" class="java.util.Calendar" factory-method="getInstance"/>
 

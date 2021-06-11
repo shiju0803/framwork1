@@ -20,7 +20,7 @@
             <property name="userDao" ref="userDao"/>
         </domain>
 
-        <domain id="userDao" class="com.shiju.dao.impl.UserDaoImpl"/>-->
+        <domain id="userDao" class="com.shiju.mapperper.impl.UserDaoImpl"/>-->
 
 
     <!--【第一步】：引入外部的属性文件-->

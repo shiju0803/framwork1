@@ -1,6 +1,6 @@
 package com.shiju.service.impl;
 
-import com.shiju.dao.AccountDao;
+import com.shiju.mapper.AccountDao;
 import com.shiju.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;

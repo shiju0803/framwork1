@@ -1,4 +1,4 @@
-package com.shiju.dao;
+package com.shiju.mapper;
 
 /**
  * @author shiju

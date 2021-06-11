@@ -1,6 +1,6 @@
 package com.shiju.service.impl;
 
-import com.shiju.dao.UserDao;
+import com.shiju.mapper.UserDao;
 import com.shiju.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

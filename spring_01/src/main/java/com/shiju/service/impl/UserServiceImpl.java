@@ -1,6 +1,6 @@
 package com.shiju.service.impl;
 
-import com.shiju.dao.UserDao;
+import com.shiju.mapper.UserDao;
 import com.shiju.service.UserService;
 
 /**

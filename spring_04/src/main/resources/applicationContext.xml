@@ -37,7 +37,7 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.shiju.dao"/>
+        <property name="basePackage" value="com.shiju.mapper"/>
     </bean>
 
     <!--AOP改造配置事务管理-->

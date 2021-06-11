@@ -1,6 +1,6 @@
-package com.shiju.dao.impl;
+package com.shiju.mapper.impl;
 
-import com.shiju.dao.UserDao;
+import com.shiju.mapper.UserDao;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
