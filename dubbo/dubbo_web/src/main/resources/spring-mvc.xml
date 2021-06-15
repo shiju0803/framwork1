@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+        http://dubbo.apache.org/schema/dubbo
+        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+
+    <context:component-scan base-package="com.itheima.controller"/>
+
+    <mvc:default-servlet-handler/>
+
+    <mvc:annotation-driven/>
+
+    <!--dubbo配置-->
+    <!--1 定义服务的名称-->
+    <dubbo:application name="dubbo_web"/>
+    <!--2 配置zookeeper注册中心地址-->
+    <dubbo:registry address="zookeeper://192.168.175.125:2181"/>
+    <!--定义服务在zookeeper内部占用的访问端口，默认是20880，如果有发布多个服务，那么需要定义端口号-->
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <!--3 定义dubbo的包扫描，后期使用注解将service作为服务发布到zookeeper注册中心  -->
+    <dubbo:annotation package="com.itheima.controller"/>
+</beans>
